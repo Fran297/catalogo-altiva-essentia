@@ -297,6 +297,30 @@ footer.contact .wa-link svg { width:18px; height:18px; }
 .floating-wa:hover { transform: scale(1.08); box-shadow: 0 8px 22px rgba(0,0,0,0.6), 0 0 18px rgba(212,170,53,0.5); }
 .floating-wa svg { width: 26px; height: 26px; }
 
+.music-toggle {
+  position: fixed; left: 20px; bottom: 20px; z-index: 60;
+  background: rgba(20,18,15,0.16);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  color: var(--gold); width:46px; height:46px; border-radius:50%;
+  border: 1.5px solid rgba(212,170,53,0.55);
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3), 0 0 10px rgba(212,170,53,0.3);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.music-toggle:hover { transform: scale(1.08); box-shadow: 0 6px 16px rgba(0,0,0,0.3), 0 0 16px rgba(212,170,53,0.45); }
+.music-toggle svg { width: 19px; height: 19px; }
+.music-toggle .icon-pause { display:none; }
+.music-toggle.playing .icon-play { display:none; }
+.music-toggle.playing .icon-pause { display:block; }
+.music-toggle.playing {
+  animation: musicPulse 1.6s ease-in-out infinite;
+}
+@keyframes musicPulse {
+  0%, 100% { box-shadow: 0 6px 16px rgba(0,0,0,0.3), 0 0 10px rgba(212,170,53,0.3); }
+  50% { box-shadow: 0 6px 16px rgba(0,0,0,0.3), 0 0 18px rgba(212,170,53,0.6); }
+}
+
 .theme-toggle {
   position: fixed; top: 20px; right: 20px; z-index: 70;
   background: rgba(20,18,15,0.16);
@@ -315,23 +339,6 @@ footer.contact .wa-link svg { width:18px; height:18px; }
 .theme-toggle .sun { display:none; }
 body.light-mode .theme-toggle .sun { display:block; }
 body.light-mode .theme-toggle .moon { display:none; }
-
-.music-toggle {
-  position: fixed; top: 20px; left: 20px; z-index: 70;
-  width: 43px; height: 43px; border-radius: 50%; border: 1px solid rgba(212,170,53,0.55);
-  background: rgba(20,18,15,0.16); color: var(--gold); cursor: pointer;
-  display: grid; place-items: center;
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25), inset 0 0 8px rgba(212,170,53,0.10);
-  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
-}
-.music-toggle:hover { transform: scale(1.1); box-shadow: 0 6px 14px rgba(0,0,0,0.3), 0 0 16px rgba(212,170,53,0.45); }
-.music-toggle svg { width: 19px; height: 19px; }
-.music-toggle .pause { display: none; }
-.music-toggle.playing { background: rgba(212,170,53,0.25); color: var(--gold); box-shadow: 0 0 18px rgba(212,170,53,0.48), inset 0 0 9px rgba(212,170,53,0.16); }
-.music-toggle.playing .note { display: none; }
-.music-toggle.playing .pause { display: block; }
 
 .scroll-top {
   position: fixed; right: 20px; bottom: 84px; z-index: 60;
@@ -364,11 +371,6 @@ body.light-mode .theme-toggle .moon { display:none; }
 <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambiar tema">
   <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
   <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="1.5" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22.5" y2="12"/><line x1="4.5" y1="4.5" x2="6.2" y2="6.2"/><line x1="17.8" y1="17.8" x2="19.5" y2="19.5"/><line x1="4.5" y1="19.5" x2="6.2" y2="17.8"/><line x1="17.8" y1="6.2" x2="19.5" y2="4.5"/></svg>
-</button>
-
-<button class="music-toggle" id="musicToggle" type="button" aria-label="Reproducir Flashing Lights de Kanye West" aria-pressed="false" title="Reproducir Flashing Lights · Kanye West">
-  <svg class="note" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
-  <svg class="pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.5" y="5" width="3.5" height="14" rx="1"/><rect x="14" y="5" width="3.5" height="14" rx="1"/></svg>
 </button>
 
 <nav class="sticky">
@@ -4538,6 +4540,12 @@ body.light-mode .theme-toggle .moon { display:none; }
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
 </button>
 
+<button class="music-toggle" id="musicToggle" type="button" aria-label="Reproducir música">
+  <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72c0 .84.93 1.36 1.65.92l10.86-6.86a1.08 1.08 0 0 0 0-1.84L9.65 4.22C8.93 3.78 8 4.3 8 5.14Z"/></svg>
+  <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+</button>
+<audio id="bgAudio" src="musica-catalogo.mp3" preload="none" loop></audio>
+
 <script>
 let selectedHouses = new Set();
 const todasChip = document.querySelector('.chip[data-target="top"]');
@@ -4607,6 +4615,18 @@ scrollTopBtn.addEventListener('click', () => {
   window.scrollTo({top:0, behavior:'smooth'});
 });
 
+const musicToggle = document.getElementById('musicToggle');
+const bgAudio = document.getElementById('bgAudio');
+musicToggle.addEventListener('click', () => {
+  if (bgAudio.paused) {
+    bgAudio.play().catch(() => {});
+    musicToggle.classList.add('playing');
+  } else {
+    bgAudio.pause();
+    musicToggle.classList.remove('playing');
+  }
+});
+
 const themeToggle = document.getElementById('themeToggle');
 const eyebrowLine = document.getElementById('eyebrowLine');
 function updateToggleVisibility() {
@@ -4625,49 +4645,6 @@ try {
 themeToggle.addEventListener('click', () => {
   setTheme(!document.body.classList.contains('light-mode'));
 });
-
-const musicToggle = document.getElementById('musicToggle');
-let musicIsPlaying = false;
-const musicAudio = new Audio('flashing-lights-kanye-west.mp3');
-musicAudio.preload = 'auto';
-musicAudio.autoplay = true;
-
-function updateMusicToggle() {
-  musicToggle.classList.toggle('playing', musicIsPlaying);
-  musicToggle.setAttribute('aria-pressed', String(musicIsPlaying));
-  musicToggle.setAttribute('aria-label', musicIsPlaying ? 'Pausar Flashing Lights de Kanye West' : 'Reproducir Flashing Lights de Kanye West');
-  musicToggle.title = musicIsPlaying ? 'Pausar Flashing Lights · Kanye West' : 'Reproducir Flashing Lights · Kanye West';
-}
-
-function startMusic() {
-  musicIsPlaying = true;
-  updateMusicToggle();
-  musicAudio.play().catch(() => {
-    musicIsPlaying = false;
-    updateMusicToggle();
-  });
-}
-
-function stopMusic() {
-  musicAudio.pause();
-  musicIsPlaying = false;
-  updateMusicToggle();
-}
-
-musicAudio.addEventListener('ended', () => {
-  musicIsPlaying = false;
-  updateMusicToggle();
-});
-
-musicToggle.addEventListener('click', () => {
-  if (musicIsPlaying) {
-    stopMusic();
-  } else {
-    startMusic();
-  }
-});
-
-startMusic();
 
 const search = document.getElementById('search');
 const sections = Array.from(document.querySelectorAll('.house-section'));
